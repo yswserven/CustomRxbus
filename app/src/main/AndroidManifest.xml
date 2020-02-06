@@ -24,6 +24,8 @@
             android:process=":ysw">
 
         </activity>
+
+        <service android:name=".service.RxBusService" />
     </application>
 
 </manifest>

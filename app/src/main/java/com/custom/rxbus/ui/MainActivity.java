@@ -7,7 +7,7 @@ import android.widget.TextView;
 
 import com.custom.rxbus.R;
 import com.custom.rxbus.core.RxBus;
-import com.custom.rxbus.core.Subscribe;
+import com.custom.rxbus.annotion.Subscribe;
 import com.custom.rxbus.core.ThreadMode;
 import com.custom.rxbus.model.RxBusTestModel;
 

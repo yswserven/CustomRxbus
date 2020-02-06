@@ -1,4 +1,6 @@
-package com.custom.rxbus.core;
+package com.custom.rxbus.annotion;
+
+import com.custom.rxbus.core.ThreadMode;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;

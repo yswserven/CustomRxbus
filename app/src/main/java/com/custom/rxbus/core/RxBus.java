@@ -3,6 +3,8 @@ package com.custom.rxbus.core;
 import android.os.Handler;
 import android.os.Looper;
 
+import com.custom.rxbus.annotion.Subscribe;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
