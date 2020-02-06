@@ -5,19 +5,25 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
+import android.os.RemoteException;
 import android.text.TextUtils;
 
-import com.custom.rxbus.service.RxBusService;
+import com.custom.rxbus.RxBusRequest;
+import com.custom.rxbus.RxBusResponse;
+import com.custom.rxbus.RxBusService;
+import com.custom.rxbus.service.HermesService;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by: Ysw on 2020/2/3.
  */
 public class ServiceConnectionManager {
     private static volatile ServiceConnectionManager singleton = null;
-    private Map<Class<? extends RxBusService>, com.custom.rxbus.RxBusService> mRxBusServices = new HashMap<>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, RxBusService>
+            mRxBusServices = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<Class<? extends HermesService>, HermesServiceConnection>
+            mHermesServiceConnections = new ConcurrentHashMap<>();
 
     private ServiceConnectionManager() {
     }
@@ -33,8 +39,9 @@ public class ServiceConnectionManager {
         return singleton;
     }
 
-    public void bind(Context context, String packageName,
-                     Class<? extends RxBusService> service) {
+    public void bind(Context context, String packageName, Class<? extends HermesService> service) {
+        HermesServiceConnection connection = new HermesServiceConnection(service);
+        mHermesServiceConnections.put(service, connection);
         Intent intent;
         if (TextUtils.isEmpty(packageName)) {
             intent = new Intent(context, service);
@@ -42,16 +49,27 @@ public class ServiceConnectionManager {
             intent = new Intent();
             intent.setClassName(packageName, service.getName());
         }
-        RxBusHermesServiceConnection connection = new RxBusHermesServiceConnection(service);
         context.bindService(intent, connection, Context.BIND_AUTO_CREATE);
-
-
     }
 
-    private class RxBusHermesServiceConnection implements ServiceConnection {
-        private Class<? extends RxBusService> mClass;
 
-        RxBusHermesServiceConnection(Class<? extends RxBusService> service) {
+    public RxBusResponse request(Class<HermesService> hermesServiceClass, RxBusRequest request) {
+        RxBusService rxBusService = mRxBusServices.get(hermesServiceClass);
+        if (rxBusService != null) {
+            try {
+                return rxBusService.send(request);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+
+    private class HermesServiceConnection implements ServiceConnection {
+        private Class<? extends HermesService> mClass;
+
+        HermesServiceConnection(Class<? extends HermesService> service) {
             mClass = service;
         }
 

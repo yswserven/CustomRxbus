@@ -7,7 +7,18 @@ import android.os.Parcelable;
  * Created by: Ysw on 2020/2/3.
  */
 public class RxBusResponse implements Parcelable {
+    private String data;
+
+    public String getData() {
+        return data;
+    }
+
+    public RxBusResponse(String data) {
+        this.data = data;
+    }
+
     protected RxBusResponse(Parcel in) {
+        data = in.readString();
     }
 
     public static final Creator<RxBusResponse> CREATOR = new Creator<RxBusResponse>() {
@@ -29,5 +40,6 @@ public class RxBusResponse implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(data);
     }
 }

@@ -8,9 +8,24 @@ import android.os.Parcelable;
  */
 public class RxBusRequest implements Parcelable {
     private String data;
+    private int type;
+
+    public String getData() {
+        return data;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public RxBusRequest(String data, int type) {
+        this.data = data;
+        this.type = type;
+    }
 
     protected RxBusRequest(Parcel in) {
         data = in.readString();
+        type = in.readInt();
     }
 
     public static final Creator<RxBusRequest> CREATOR = new Creator<RxBusRequest>() {
@@ -33,5 +48,6 @@ public class RxBusRequest implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(data);
+        dest.writeInt(type);
     }
 }
