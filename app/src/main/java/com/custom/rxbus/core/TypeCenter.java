@@ -49,7 +49,8 @@ public class TypeCenter {
         for (Method method : methods) {
             mRawMethods.putIfAbsent(clazz, new ConcurrentHashMap<String, Method>());
             ConcurrentHashMap<String, Method> map = mRawMethods.get(clazz);
-
+            String key = TypeUtils.getMethodId(method);
+            map.put(key, method);
         }
     }
 

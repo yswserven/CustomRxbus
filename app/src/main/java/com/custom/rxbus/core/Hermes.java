@@ -73,10 +73,8 @@ public class Hermes {
     }
 
     private <T> RxBusResponse sendRequest(Class<HermesService> HermesServiceClass,
-                                          Class<T> clazz, Method method,
-                                          Object[] parameters) {
+                                          Class<T> clazz, Method method, Object[] parameters) {
         RequestBean requestBean = new RequestBean();
-        String className = null;
         if (clazz.getAnnotation(ClassId.class) == null) {
             requestBean.setClassName(clazz.getName());
             requestBean.setResultClassName(clazz.getName());
@@ -108,7 +106,6 @@ public class Hermes {
     public <T> RxBusResponse sendObjectRequest(Class<HermesService> hermesServiceClass,
                                                Class<T> clazz, Method method, Object[] parameters) {
         RequestBean requestBean = new RequestBean();
-        String className = null;
         if (clazz.getAnnotation(ClassId.class) == null) {
             requestBean.setClassName(clazz.getName());
             requestBean.setResultClassName(clazz.getName());
