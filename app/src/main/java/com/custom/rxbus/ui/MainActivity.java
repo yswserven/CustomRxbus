@@ -7,10 +7,8 @@ import android.widget.TextView;
 
 import com.custom.rxbus.R;
 import com.custom.rxbus.annotion.Subscribe;
-import com.custom.rxbus.core.Hermes;
 import com.custom.rxbus.core.RxBus;
 import com.custom.rxbus.core.ThreadMode;
-import com.custom.rxbus.model.HermesTestMode;
 import com.custom.rxbus.model.RxBusTestModel;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,11 +25,6 @@ public class MainActivity extends AppCompatActivity {
         RxBus.getInstance().register(this);
         tvName = findViewById(R.id.tv_name);
         tvAge = findViewById(R.id.tv_age);
-
-        Hermes.getInstance().init(this);
-        Hermes.getInstance().register(HermesTestMode.class);
-        HermesTestMode.getInstance().setName("杨胜文");
-        HermesTestMode.getInstance().setAge("30");
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -45,9 +45,9 @@ public class RxBus {
         }
     }
 
-    public void unRegister(Object activity){
+    public void unRegister(Object activity) {
         List<SubscribeMethod> list = cacheMap.get(activity);
-        if (list!=null){
+        if (list != null) {
             cacheMap.remove(activity);
         }
     }
@@ -113,13 +113,10 @@ public class RxBus {
                                 }
                                 break;
                             case POSTING:
-                                break;
                             case BACKGROUND:
-                                break;
                             case MAIN_ORDERED:
                                 break;
                         }
-
                     }
                 }
             }

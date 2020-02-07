@@ -20,12 +20,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.SecondActivity"
-            android:process=":ysw">
+            android:name=".ui.SecondActivity">
 
         </activity>
-
-        <service android:name=".service.HermesService" />
     </application>
 
 </manifest>
